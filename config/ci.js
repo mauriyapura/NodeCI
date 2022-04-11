@@ -6,8 +6,8 @@ module.exports = {
     mongoURI: 'mongodb://127.0.0.1:27017/blog_ci',
     cookieKey: '123123123',
     redisUrl : {
-        host: '127.0.0.1',
-        port: '6379'
+      host: '127.0.0.1',
+      port: '6379'
     }
   };
 
