@@ -89,6 +89,8 @@ describe("When user is not logged in", ()=>{
             } 
         }
     ];
+    
+    console.log("probando ACtions");
 
     test("Blog related actions are prohibited", async()=>{
 
