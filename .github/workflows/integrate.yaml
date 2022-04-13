@@ -5,6 +5,10 @@ on:
   pull_request: 
     branches: [master]
 
+env: 
+  NODE_ENV=ci
+  PORT=3000
+
 jobs: 
   ci_to_master:
     runs-on: ubuntu-latest
@@ -23,7 +27,7 @@ jobs:
                   image: redis
                   ports: 
                     - 6379:6379
-                    
+
     steps:    
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
