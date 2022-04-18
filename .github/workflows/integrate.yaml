@@ -2,6 +2,9 @@
 name: Continuous Integration with NodeJs
 
 on:
+  push: 
+    branches: [master]
+
   pull_request: 
     branches: [master]
 
