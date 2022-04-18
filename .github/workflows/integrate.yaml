@@ -32,6 +32,7 @@ jobs:
           redis-version: '6.0'
 
       - run: redis-cli ping
-      - run: npm ci
-      - run: npm test
+      - run: npm install
       - run: npm run build
+      - run: npm test
+      
