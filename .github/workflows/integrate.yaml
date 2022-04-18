@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v2
         with:
-          node-version: 16      
+          node-version: '16'      
       - uses: supercharge/mongodb-github-action@1.7.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
@@ -32,6 +32,6 @@ jobs:
           redis-version: '6.0'
 
       - run: redis-cli ping
-      - run: npm ci
+      - run: npm install
       - run: npm test
-      - run: npm run build
+      
