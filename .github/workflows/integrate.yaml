@@ -6,33 +6,29 @@ on:
     branches: [master]
 
 env: 
-  NODE_ENV=ci
-  PORT=3000
+  NODE_ENV: ci
+  PORT: 3000
 
 jobs: 
   ci_to_master:
     runs-on: ubuntu-latest
-
-    services:
-              mongodb:
-                  image: mongo             
-                  options: >-
-                    --health-cmd mongo
-                    --health-interval 10s
-                    --health-timeout 5s
-                    --health-retries 5
-                  ports:
-                    - 27017:27017
-              redis: 
-                  image: redis
-                  ports: 
-                    - 6379:6379
+    strategy:
+      matrix:        
+        mongodb-version: ['4.4']
 
     steps:    
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: 16      
+      - uses: supercharge/mongodb-github-action@1.7.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+      - uses: shogo82148/actions-setup-redis@v1
+        with:
+          redis-version: '6.x
+
+      - run: redis-cli ping
       - run: npm ci
       - run: npm test
       - run: npm run build
