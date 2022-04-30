@@ -36,27 +36,15 @@ jobs:
       - run: redis-cli ping
       - run: npm ci
       - run: npm run build
-      - uses: actions/upload-artifact@v2
-        with:
-          name: build
-          path: client/build      
+
+      - run: npm start & npx wait-on http://localhost:3000
+
+      - name: Sleep for 10 seconds
+        run: sleep 10s
+        shell: bash
+
+      - run: npm test         
   
-  test:
-    needs: [build]
-    runs-on: ubuntu-18.04
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16 
-      - run: npm ci
-      - uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: client/build
-      - run: npm test
-          
+           
 
     
