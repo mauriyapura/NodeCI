@@ -9,7 +9,7 @@ class BlogShow extends Component {
 
   renderImage(){
     if(this.props.blog.imageUrl){
-      return <img src={ 'https://nodeblogbucket.s3.sa-east-1.amazonaws.com' + this.props.blog.imageUrl}/>
+      return <img src={ 'https://nodeblogbucket.s3.sa-east-1.amazonaws.com' + this.props.blog.imageUrl} alt=""/>
       
     }
   }

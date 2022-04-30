@@ -13,14 +13,16 @@ env:
   PORT: 3000
 
 jobs: 
-  ci_to_master:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-18.04
     strategy:
       matrix:        
         mongodb-version: ['4.4']
 
     steps:    
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v2
         with:
           node-version: 16      
@@ -33,5 +35,28 @@ jobs:
 
       - run: redis-cli ping
       - run: npm ci
-      - run: npm test
       - run: npm run build
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist      
+  
+  test:
+    needs: [build]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16 
+      - run: npm ci
+      - uses: actions/download-artifact@v2
+        with:
+          name: dist
+          path: dist
+      - run: npm test
+          
+
+    
