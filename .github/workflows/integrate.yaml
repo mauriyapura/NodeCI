@@ -55,7 +55,8 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build
-          path: client/build
+          path: client/build     
+      - run: npm start & npx wait-on http://localhost:3000  
       - run: npm test
           
 
